@@ -1,0 +1,48 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+_build/
+.vscode/
+vs/
+.github/
+ports/esp32/build/
+mpy-cross/build/
+mpy-cross/mpy-cross.map
+py/makeqstrdata.pyc
+
+ports/esp32/machine_pad.c
+pymakr.conf
+
+
+.DS_Store
+node_modules
+folder
