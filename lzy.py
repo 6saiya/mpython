@@ -1,6 +1,9 @@
 def connect(ssid,password):
     import os
     import re
+    import network
+    import urequests
+    import time
 
     f = open('test.py', 'r')
     r = f.read()
@@ -36,49 +39,43 @@ def connect(ssid,password):
     s = strinfo.sub('%40',s)
     strinfo = re.compile('\n')
     s = strinfo.sub('%0A',s)
-
-    # strinfo = re.compile('?')       # bug
-    # s = strinfo.sub('%3F',s)
+    strinfo = re.compile('\+')     
+    s = strinfo.sub('%2B',s)
+    strinfo = re.compile('\(') 
+    s = strinfo.sub('%28',s)
+    strinfo = re.compile('\)')  
+    s = strinfo.sub('%29',s)
+    strinfo = re.compile('\?')       
+    s = strinfo.sub('%3F',s)
 
     # strinfo = re.compile('\\')      # bug 
     # s = strinfo.sub('%5C',s)
 
-    # strinfo = re.compile('+')     # bug
-    # s = strinfo.sub('%2B',s)
-
-    # strinfo = re.compile('(') # bug
-    # s = strinfo.sub('%28',s)
-
-    # strinfo = re.compile(')') # bug  
-    # s = strinfo.sub('%29',s)
-    
-
-    print(s)
-    print('Finish os & re test')
-    import network
+    print('Finish os & re')
     sta_if = network.WLAN(network.STA_IF)
     sta_if.active(True)
-    sta_if.connect("Timerry", "2018Bunny")
-    # sta_if.connect(ssid, password)
+    time.sleep(1)
+    uuid = sta_if.uuid()
+    sta_if.connect(ssid, password)
+    time.sleep(3)
     if sta_if.isconnected() :
         print('====== Connect Success ====== ')
-        import urequests
-        s = 'http://192.168.1.120:3000/getfs?id=fsdbhgrwh5&title=test&msg='+s
-        response = urequests.get(s)
+        
+        #url = 'http://192.168.1.120:3000/getfs?id='+uuid
+        #url +='&title=test&msg='
+        #url += s
+        
+        url = 'http://192.168.1.120:3000/getfs?id='+uuid+'&title=test&msg='+s
+        
+        response = urequests.get(url)
         if(response.text == 'test') :
             print('====== Upload Success ====== ')
-    return
-
-
+        else :
+            print('====== Upload Error ====== ')
+    else :
+        print('====== Connect Error ====== ')
+    pass
 
 # test 
 # import lzy
-# connect("Timerry", "2018Bunny")
-
-# test.py        
-def my_abs(x):
-    if x >= 0:
-        return x
-    else:
-        return -x
-
+# connect(‘Timerry‘, ‘2018Bunny‘)
