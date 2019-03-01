@@ -1,4 +1,4 @@
-def connect(ssid,password):
+def connect(ssid,password,web):
     import os
     import re
     import network
@@ -60,12 +60,8 @@ def connect(ssid,password):
     time.sleep(3)
     if sta_if.isconnected() :
         print('====== Connect Success ====== ')
-        
-        #url = 'http://192.168.1.120:3000/getfs?id='+uuid
-        #url +='&title=test&msg='
-        #url += s
-        
-        url = 'http://192.168.1.120:3000/getfs?id='+uuid+'&title=test&msg='+s
+
+        url = web+'/getfs?id='+uuid+'&title=test&msg='+s
         
         response = urequests.get(url)
         if(response.text == 'test') :
